@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { del } from "@vercel/blob";
 import {
-  checkPassword,
   createSession,
   destroySession,
   getSession,
@@ -18,14 +17,8 @@ export async function login(
   formData: FormData,
 ): Promise<LoginState> {
   const name = String(formData.get("name") ?? "").trim().slice(0, 40);
-  const password = String(formData.get("password") ?? "");
   if (!name) return { error: "Please enter your name." };
 
-  if (!checkPassword(password)) {
-    // Slow down brute-force attempts.
-    await new Promise((r) => setTimeout(r, 1500));
-    return { error: "That password isn't right." };
-  }
   await createSession(name);
   redirect("/");
 }

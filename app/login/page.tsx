@@ -16,7 +16,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm ring-1 ring-stone-200">
         <h1 className="font-serif text-3xl text-stone-800">Family Photos</h1>
         <p className="mt-1 mb-6 text-sm text-stone-500">
-          A private place for the family. Enter the family password to continue.
+          A private place for the family. Enter your name to continue.
         </p>
         <LoginForm />
         <Suspense>

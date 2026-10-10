@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
-import { timingSafeEqual, createHash } from "node:crypto";
 
 const COOKIE = "fp_session";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 days
@@ -13,14 +12,6 @@ function key() {
     throw new Error("AUTH_SECRET must be set (16+ characters)");
   }
   return new TextEncoder().encode(secret);
-}
-
-export function checkPassword(input: string): boolean {
-  const expected = process.env.FAMILY_PASSWORD;
-  if (!expected) throw new Error("FAMILY_PASSWORD must be set");
-  const a = createHash("sha256").update(input).digest();
-  const b = createHash("sha256").update(expected).digest();
-  return timingSafeEqual(a, b);
 }
 
 export async function createSession(name: string) {
